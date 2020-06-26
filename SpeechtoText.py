@@ -34,20 +34,7 @@ def main():
         text = mp4_to_text(file_path)
         print(text)
     
-    elif isDirectory:
-
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        directory_results = file_path + '_results'
-
-        # creation of a directory for the results
-        try:
-            os.mkdir(directory_results)
-
-        except OSError:
-            print ("Creation of the directory %s failed" % directory_results)
-
-        else:
-            print ("Created the directory %s" % directory_results)
+    elif isDirectory:       
 
         files = []
         for path in os.listdir(file_path):
