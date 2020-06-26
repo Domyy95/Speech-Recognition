@@ -14,11 +14,9 @@ def main():
  
     file_path = sys.argv[1]
 
-    #checks if path is a file
-    isFile = os.path.isfile(file_path)
-
-    #checks if path is a directory
-    isDirectory = os.path.isdir(file_path)    
+    # rename file if contain spaces
+    os.rename(file_path, file_path.replace(" ", "_"))
+    file_path = file_path.replace(" ", "_")    
 
     try:
         if not os.path.exists(file_path):
@@ -29,19 +27,41 @@ def main():
         print(err.reason)
         exit(1)
 
+    #checks if path is a file
+    isFile = os.path.isfile(file_path)
+
+    #checks if path is a directory
+    isDirectory = os.path.isdir(file_path)
+
     if isFile:
         text = mp4_to_text(file_path)
         print(text)
     
     elif isDirectory:
 
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        directory_results = file_path + '_results'
+
         # creation of a directory for the results
         try:
-            os.mkdir(file_path + '_results')
+            os.mkdir(directory_results)
+
         except OSError:
-            print ("Creation of the directory %s failed" % file_path)
+            print ("Creation of the directory %s failed" % directory_results)
+
         else:
-            print ("Created the directory %s " % file_path+'_results')
+            print ("Created the directory %s" % directory_results)
+
+        files = []
+        for path in os.listdir(file_path):
+            files.append(path)
+        
+        os.chdir(file_path)
+            
+        for f in files:
+            os.rename(f, f.replace(" ", "_"))
+            newname = f.replace(" ", "_") 
+            mp4_to_text(newname)
 
 
 def mp4_to_text(file_path):
@@ -59,7 +79,7 @@ def write_to_txt(mp3,content):
         f.write(content)
         
 
-""" Transforms video file into a MP3 file """
+""" Transforms video file into a wav file """
 def from_video_to_audio(file_name):
     
     try:
@@ -101,11 +121,13 @@ def divide_audio(audio):
 
     return n
 
+
 def delete_wav(file,n):
 
     os.remove(file)  
     for i in range(0,n+1):
         os.remove('{}.wav'.format(i))  
+
 
 """ Recognize text from a wav audio file """
 def from_audio_to_text(file_name):
