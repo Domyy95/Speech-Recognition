@@ -43,9 +43,6 @@ def main():
         else:
             print ("Created the directory %s " % file_path+'_results')
 
-        
-
-
 
 def mp4_to_text(file_path):
     audio = from_video_to_audio(file_path)
@@ -104,6 +101,12 @@ def divide_audio(audio):
 
     return n
 
+def delete_wav(file,n):
+
+    os.remove(file)  
+    for i in range(0,n+1):
+        os.remove('{}.wav'.format(i))  
+
 """ Recognize text from a wav audio file """
 def from_audio_to_text(file_name):
 
@@ -120,6 +123,8 @@ def from_audio_to_text(file_name):
         result = r.recognize_google(audio, language='it-IT')
 
         text += result
+    
+    delete_wav(file_name,audios)
 
     return text
 
