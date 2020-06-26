@@ -13,15 +13,12 @@ def main():
         exit(1)
  
     file_path = sys.argv[1]
-
-    # rename file if contain spaces
-    os.rename(file_path, file_path.replace(" ", "_"))
-    file_path = file_path.replace(" ", "_")    
+ 
 
     try:
-        if not os.path.exists(file_path):
-            print('file "{}" not found!'.format(file_path))
-            exit(1)
+        # rename file if contain spaces
+        os.rename(file_path, file_path.replace(" ", "_"))
+        file_path = file_path.replace(" ", "_")   
 
     except OSError as err:
         print(err.reason)
