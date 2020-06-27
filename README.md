@@ -15,15 +15,18 @@ pip3 install -r requirements.txt
 
 ### Other 
 
-I used ffmpeg to convert the mp4 file to wav.
+I used ffmpeg to convert the mp4 file to wav. So you need to install it on your PC.
+
 [Link](https://ffmpeg.org/download.html)
 
 ## Instructions 
 
-```python
-python SpeechtoText.py Directory
-```
+You can use the program by transcribing a single mp4 file or an entire folder of mp4 files.
 
 ```python
 python SpeechtoText.py File.mp4
+```
+or
+```python
+python SpeechtoText.py Directory
 ```
